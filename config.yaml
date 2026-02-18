@@ -1,0 +1,46 @@
+# ============================================================================
+# DBKN Tuner Configuration
+# ============================================================================
+
+# LM Studio local server settings
+lm_studio:
+  base_url: "http://localhost:1234/v1"
+  model: "qwen/qwen3-vl-30b"
+  temperature: 0.1
+  max_tokens: 4096
+  timeout: 120          # seconds
+  max_retries: 3
+
+# Target RDBMS configuration
+# Supported: postgresql, mysql, sqlserver, oracle
+rdbms:
+  type: "postgresql"
+  version: "17"
+
+# Input / Output paths
+paths:
+  input_dir: "./input"
+  output_dir: "./output/logs"
+  samples_dir: "./samples"
+
+# Security settings
+security:
+  # HMAC key file for log integrity verification
+  hmac_key_path: "./secrets/hmac.key"
+  # Enable AES-256-GCM encryption of log files
+  encrypt_logs: false
+  # Encryption passphrase (prefer env var DBKN_ENCRYPT_PASSPHRASE)
+  encrypt_passphrase: ""
+
+# Log format settings
+logging:
+  format: "structured"    # structured | plain
+  severity_levels:
+    - CRITICAL
+    - HIGH
+    - MEDIUM
+    - LOW
+    - INFO
+  include_timestamp: true
+  include_hmac: true
+  chain_of_custody: true  # each log references hash of previous
